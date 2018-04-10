@@ -1,0 +1,52 @@
+#!/usr/bin/php
+<?php
+
+require_once 'conf';
+require_once 'api_queries.php';
+require_once 'database_queries.php';
+
+foreach (USERNAMES as $index => $username) {
+    /* Fetch Data */
+    for ($page = 1; $page <= NUMBER_OF_PAGES; $page++) {
+        try {
+            $data = fetchHomeTimeLine([
+                'access_token' => ACCESS_TOKENS[$index],
+                'count' => COUNT,
+                'page' => $page,
+                'feature' => FEATURE
+            ]);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            continue;
+        }
+
+        /* Check Response */
+        if (!isset($data['statuses'])) {
+            continue;
+        }
+
+        /* Go through each posts */
+        foreach ($data['statuses'] as $post) {
+            /* If retweeted, keep original */
+            if (isset($post['retweeted_status'])) {
+                $post = $post['retweeted_status'];
+            }
+
+            /* Insert into database */
+            try {
+                insertIntoTable(USERNAMES[0], [
+                    'id' => $post['id'],
+                    'text' => $post['text'],
+                    'user_id' => $post['user']['id'],
+                    'user_name' => $post['user']['screen_name'],
+                    'created_at' => $post['created_at'],
+                    'timestamp' => time()
+                ]);
+            } catch (Exception $e) {
+                echo $e->getMessage();
+                continue;
+            }
+        }
+    }
+}
+
