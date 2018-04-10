@@ -6,6 +6,13 @@ require_once 'api_queries.php';
 require_once 'database_queries.php';
 
 foreach (USERNAMES as $index => $username) {
+    /* Separate Option */
+    if (!SEPARATED && !is_null(MAIN_USER) && in_array(MAIN_USER, USERNAMES)) {
+        $table = MAIN_USER;
+    } else {
+        $table = $username;
+    }
+
     /* Fetch Data */
     for ($page = 1; $page <= NUMBER_OF_PAGES; $page++) {
         try {
@@ -34,7 +41,7 @@ foreach (USERNAMES as $index => $username) {
 
             /* Insert into database */
             try {
-                insertIntoTable(USERNAMES[0], [
+                insertIntoTable($table, [
                     'id' => $post['id'],
                     'text' => $post['text'],
                     'user_id' => $post['user']['id'],

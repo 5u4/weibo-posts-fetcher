@@ -5,6 +5,7 @@
  * Tool Settings
  */
 const SEPARATED = true; /* Separate multiple users' posts into their own table */
+const MAIN_USER = null; /* Specify the main username when <SEPARATE> is false */
 const COUNT = 100; /* The number of posts each api request; Maximum 100 */
 const NUMBER_OF_PAGES = 5; /* Request pages, each page contains <COUNT> of posts */
 const FEATURE = 0; /* Filter posts; 0: All; 1: Originals; 2: Pictures; 3: Videos; 4: Musics */
