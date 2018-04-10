@@ -3,14 +3,16 @@
 ## Description
 
 The tool is designed for fetching [Weibo](https://weibo.com) (Chinese Twitter) posts, 
-filter out the duplications, 
+filter out the duplicate posts, 
 and store them locally.
  
 It saves user's time in browsing since most of the content are repeated (people retweet posts).
 
-The tool uses PHP7 and MySQL.
+The tool requires PHP7 and MySQL.
 
 API: [Weibo API](http://open.weibo.com/wiki/API)
+
+The tool filtered out around 4/5 repeated posts in average (different user might have different values).
 
 ## Initialize
 
@@ -70,5 +72,5 @@ crontab -e
 Add the following to the file (replace `<directory>` to file directory)
 
 ```
-0 */8 * * * (php <directory>/fetch)
+0 */8 * * * (php <directory>/fetch) # execute every 8 hours
 ```
