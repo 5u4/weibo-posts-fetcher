@@ -18,11 +18,11 @@ const ACCESS_TOKENS = ['access_token']; /* Access token from http://open.weibo.c
 /**
  * Database Settings
  */
-const DB_HOST = 'localhost';
-const DB_PORT = 3306;
-const DB_DATABASE = 'weibo';
-const DB_USER = 'root';
-const DB_PASSWORD = 'password';
+const DB_HOST = 'localhost'; /* Database Host */
+const DB_PORT = 3306; /* Database Port */
+const DB_DATABASE = 'weibo'; /* Database Name */
+const DB_USER = 'root'; /* User */
+const DB_PASSWORD = 'password'; /* Password */
 
 /**
  * Table Columns
