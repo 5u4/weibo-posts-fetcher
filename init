@@ -1,0 +1,21 @@
+#!/usr/bin/php
+<?php
+
+require_once 'conf';
+require_once 'database_queries.php';
+
+/** -----------------------------------------
+ * Create Tables
+ * ------------------------------------------
+ */
+
+
+foreach (USERNAMES as $username) {
+    try {
+        createTableIfNotExists($username);
+        echo $username . " table created successfully. \n";
+    } catch (Exception $e) {
+        echo $e->getMessage() . "\n";
+        continue;
+    }
+}
