@@ -96,3 +96,9 @@ php -S localhost:8000
 Then use your browser to open `localhost:8000`
 
 The page is made with [Materialize CSS](http://materializecss.com/about.html)
+
+## Screenshots
+
+### Database
+
+![Database](./screenshots/database.png)
