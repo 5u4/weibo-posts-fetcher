@@ -56,6 +56,64 @@ function fetchHomeTimeLine(array $args): array
 }
 
 /**
+ * @param string $dest
+ * @param array $resource
+ */
+function storeImages(string $dest, array $resource): void
+{
+    foreach ($resource as $name => $url) {
+        if (!file_exists($dest . '/' . $name)) {
+            copy($url, $dest . '/' . $name);
+        }
+    }
+}
+
+/**
+ * Create folders & get storing destination + image links
+ *
+ * @param array $sources
+ * @param string $id
+ * @return array
+ */
+function resourcesGetter(array $sources, string $id): array
+{
+    /* Images Folder */
+    $dest = rtrim(STORING_LOCATION, '/') . '/images/' . $id; /* dest: "./data/images/{id}" */
+    if (!is_dir($dest)) mkdir($dest);
+
+//    /* Retweeted images in separate folder */
+//    if ($isRetweetedImages) {
+//        $dest .= '/retweeted'; /* dest: "./data/images/{id}/retweeted" */
+//        if (!is_dir($dest)) mkdir($dest);
+//    }
+
+    /* Image Quality */
+    $dest .= '/' . IMAGE_QUALITY;
+    if (!is_dir($dest)) mkdir($dest);
+
+    /* URL Prefix strpos offset */
+    $offset = 18;
+
+    /* Image Sources */
+    $imageLinks = [];
+    foreach ($sources as $source) {
+        if (isset($source['thumbnail_pic'])) { /* name: "/someimageid.jpg", urlPrefix: "http://wx1.sinaimg.cn" */
+            $name = substr($source['thumbnail_pic'], strrpos($source['thumbnail_pic'],'/'));
+            $urlPrefix = substr($source['thumbnail_pic'], 0, strpos($source['thumbnail_pic'],'/', $offset));
+        } else {
+            continue;
+        }
+
+        $url = $urlPrefix . '/' . IMAGE_QUALITY . $name; /* url: "http://wx2.sinaimg.cn/large/{name}" */
+
+        /* Store Image Link */
+        $imageLinks[ltrim($name, '/')] = $url;
+    }
+
+    return [$dest, $imageLinks];
+}
+
+/**
  * cURL requesting
  *
  * @param string $url

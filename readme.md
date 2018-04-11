@@ -12,33 +12,38 @@ The tool requires PHP7 and MySQL.
 
 API: [Weibo API](http://open.weibo.com/wiki/API)
 
-The tool filtered out around 4/5 repeated posts in average (different user might have different values).
-
 ## Initialize
 
 1. Rename [conf.example](conf.example) to `conf` and fill out the settings
 
 ```
-### Tool Settings ###
-SEPARATED[boolean]: default true; Separate multiple users' posts into their own table
-COUNT[int]: default 100; The number of posts each api request; Maximum 100
-NUMBER_OF_PAGES[int]: default 5; Request pages, each page contains <COUNT> of posts
-FEATURE[int]: default 0; Filter posts; 0: All; 1: Originals; 2: Pictures; 3: Videos; 4: Musics
+/* Tool Settings */
+const SEPARATED = true; /* Separate multiple users' posts into their own table */
+const MAIN_USER = null; /* Specify the main username when <SEPARATE> is false */
+
+const STORE_IMAGES_LOCALLY = true; /* Fetching will store the images locally */
+const STORING_LOCATION = './data'; /* The local existing storing folder */
+const STORE_RETWEET_IMAGES = true; /* Store retweet images as well */
+const IMAGE_QUALITY = 'large'; /* Store image quality: large, bmiddle (not guaranteed), thumbnail */
+
+const COUNT = 100; /* The number of posts each api request; Maximum 100 */
+const NUMBER_OF_PAGES = 5; /* Request pages, each page contains <COUNT> of posts */
+const FEATURE = 0; /* Filter posts; 0: All; 1: Originals; 2: Pictures; 3: Videos; 4: Musics */
 ```
 
 ```
-### Weibo Settings ###
-USERNAMES[array<string>]: Weibo usernames
-ACCESS_TOKENS[array<string>]: Access token from http://open.weibo.com/tools/console
+/* Weibo Settings */
+const USERNAMES = ['username']; /* Weibo usernames */
+const ACCESS_TOKENS = ['access_token']; /* Access token from http://open.weibo.com/tools/console */
 ```
 
 ```
-### Database Settings ###
-DB_HOST[string]: default 'localhost'; Database Host
-DB_PORT[string]: default 3306; Database Port
-DB_DATABASE[string]: default 'weibo'; Database Name
-DB_USER[string]: default 'root'; User
-DB_PASSWORD[string]: default 'password'; Password
+/* Database Settings */
+const DB_HOST = 'localhost'; /* Database Host */
+const DB_PORT = 3306; /* Database Port */
+const DB_DATABASE = 'weibo'; /* Database Name */
+const DB_USER = 'root'; /* User */
+const DB_PASSWORD = 'password'; /* Password */
 ```
 
 2. Create Database

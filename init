@@ -8,8 +8,6 @@ require_once 'database_queries.php';
  * Create Tables
  * ------------------------------------------
  */
-
-
 foreach (USERNAMES as $username) {
     try {
         createTableIfNotExists($username);
@@ -19,3 +17,10 @@ foreach (USERNAMES as $username) {
         continue;
     }
 }
+
+/** -----------------------------------------
+ * Create Folder
+ * ------------------------------------------
+ *      Note: works when <STORING_LOCATION> has only one level
+ */
+if (STORE_IMAGES_LOCALLY && !is_dir(STORING_LOCATION)) mkdir(STORING_LOCATION);

@@ -5,6 +5,13 @@ require_once 'conf';
 require_once 'api_queries.php';
 require_once 'database_queries.php';
 
+/* Make directory images for storing images */
+if (STORE_IMAGES_LOCALLY && !is_dir(rtrim(STORING_LOCATION, '/') . '/images')) {
+    mkdir(rtrim(STORING_LOCATION, '/') . '/images');
+}
+
+/* API Fetch Each User */
+$resources = [];
 foreach (USERNAMES as $index => $username) {
     /* Separate Option */
     if (!SEPARATED && !is_null(MAIN_USER) && in_array(MAIN_USER, USERNAMES)) {
@@ -15,6 +22,7 @@ foreach (USERNAMES as $index => $username) {
 
     /* Fetch Data */
     for ($page = 1; $page <= NUMBER_OF_PAGES; $page++) {
+        /* API call */
         try {
             $data = fetchHomeTimeLine([
                 'access_token' => ACCESS_TOKENS[$index],
@@ -34,21 +42,39 @@ foreach (USERNAMES as $index => $username) {
 
         /* Go through each posts */
         foreach ($data['statuses'] as $post) {
-            /* If retweeted, keep original */
+            /* If the post is retweeted post */
             if (isset($post['retweeted_status'])) {
+                /* Store Retweeted Images */
+                if (STORE_IMAGES_LOCALLY && STORE_RETWEET_IMAGES && !empty($post['retweeted_status']['pic_urls'])) {
+                    list($dest, $imageLinks) = resourcesGetter($post['retweeted_status']['pic_urls'], $post['retweeted_status']['id']);
+                    $resources[$dest] = $imageLinks;
+                }
+
+                /* Set Original Post */
                 $post = $post['retweeted_status'];
+            }
+
+            /* Database Values */
+            $values = [
+                'id' => $post['id'],
+                'text' => $post['text'],
+                'user_id' => $post['user']['id'],
+                'user_name' => $post['user']['screen_name'],
+                'created_at' => $post['created_at'],
+                'timestamp' => time()
+            ];
+
+            /* Has Image */
+            if (!empty($post['pic_urls'])) {
+                list($dest, $imageLinks) = resourcesGetter($post['pic_urls'], $post['id']);
+                $resources[$dest] = $imageLinks;
+                $values['image_qualities'] = IMAGE_QUALITY;
+                $values['image_names'] = json_encode(array_keys($imageLinks));
             }
 
             /* Insert into database */
             try {
-                insertIntoTable($table, [
-                    'id' => $post['id'],
-                    'text' => $post['text'],
-                    'user_id' => $post['user']['id'],
-                    'user_name' => $post['user']['screen_name'],
-                    'created_at' => $post['created_at'],
-                    'timestamp' => time()
-                ]);
+                insertIntoTable($table, $values);
             } catch (Exception $e) {
                 echo $e->getMessage();
                 continue;
@@ -57,3 +83,7 @@ foreach (USERNAMES as $index => $username) {
     }
 }
 
+/* Download Images */
+foreach ($resources as $dest => $resource) {
+    storeImages($dest, $resource);
+}
