@@ -18,6 +18,8 @@ const FEATURE = 0; /* Filter posts; 0: All; 1: Originals; 2: Pictures; 3: Videos
 
 /**
  * Weibo Settings
+ * example access_token: 2.00nHeZHHwMMWCB4c55762df6IIUigD
+ * Please do not use the example access token for other use, thank you
  */
 const USERNAMES = ['username']; /* Weibo usernames */
 const ACCESS_TOKENS = ['access_token']; /* Access token from http://open.weibo.com/tools/console */
