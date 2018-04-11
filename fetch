@@ -1,5 +1,6 @@
 #!/usr/bin/php
 <?php
+@ob_end_clean();
 
 require_once 'conf';
 require_once 'api_queries.php';
