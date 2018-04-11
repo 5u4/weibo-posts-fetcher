@@ -58,17 +58,54 @@ function insertIntoTable(string $table, array $values): void
 }
 
 /**
+ * @param string $table
+ * @param array $selectedColumns
+ * @param array|null $whereClauses
+ * @return array
+ * @throws Exception
+ */
+function select(string $table, array $selectedColumns, array $whereClauses = null): array
+{
+    /* Columns */
+    $selectedColumns = implode(', ', $selectedColumns);
+
+    /* Where Clauses */
+    if (isset($whereClauses)) $whereClauses = implode(' AND ', $whereClauses);
+
+    /* Build Query */
+    $query = "SELECT " . $selectedColumns . " FROM " . $table;
+    if (isset($whereClauses)) $query .= " WHERE " . $whereClauses;
+
+    /* Select */
+    return databaseQuery($query, true);
+}
+
+/**
  * Execute database query
  *
  * @param string $query
- * @return void
+ * @param bool $expectReturn
+ * @return array
  * @throws Exception
  */
-function databaseQuery(string $query)
+function databaseQuery(string $query, bool $expectReturn = false): array
 {
     global $db;
 
-    if (!$db->query($query)) {
+    $result = $db->query($query);
+
+    if (!$result) {
         throw new Exception($query . "\n" . mysqli_error($db) . " \n");
     }
+
+    if ($expectReturn) {
+        $formattedResult = [];
+        for ($counter = 0; $counter < $result->num_rows; $counter++) {
+            $formattedResult[] = mysqli_fetch_assoc($result);
+        }
+
+        return $formattedResult;
+    }
+
+    return [];
 }
