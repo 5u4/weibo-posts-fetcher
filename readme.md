@@ -16,6 +16,8 @@ API: [Weibo API](http://open.weibo.com/wiki/API)
 
 1. Rename [conf.example](conf.example) to `conf` and fill out the settings
 
+If you are feeling the configs are too much, just fill in `ACCESS_TOKENS` provided in `conf.example` and database credentials, and keep going! 😉
+
 ```
 /* Tool Settings */
 const SEPARATED = true; /* Separate multiple users' posts into their own table */
