@@ -84,3 +84,15 @@ Add the following to the file (replace `<directory>` to file directory)
 ```
 0 */8 * * * (php <directory>/fetch) # execute every 8 hours
 ```
+
+## View Posts Using Presenter
+
+You can host PHP file in a local host to view the posts.
+
+```bash
+php -S localhost:8000
+```
+
+Then use your browser to open `localhost:8000`
+
+The page is made with [Materialize CSS](http://materializecss.com/about.html)
