@@ -100,7 +100,12 @@ foreach (USERNAMES as $index => $username) {
                 insertIntoTable($table, $values);
                 $stats[NUMBER_OF_UNIQUE_POSTS] += 1;
             } catch (Exception $e) {
-                if (CONSOLE_LOG_RESULTS) echo $e->getMessage();
+                if (CONSOLE_LOG_RESULTS) {
+                    $message = $e->getMessage();
+                    if (!DISABLE_MYSQL_DUPLICATE_MESSAGE || !isDuplicateEntry($message)) {
+                        echo $message;
+                    }
+                }
                 $stats[NUMBER_OF_DUPLICATED_POSTS] += 1;
                 continue;
             }

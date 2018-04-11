@@ -31,6 +31,7 @@ const NUMBER_OF_PAGES = 5; /* Request pages, each page contains <COUNT> of posts
 const FEATURE = 0; /* Filter posts; 0: All; 1: Originals; 2: Pictures; 3: Videos; 4: Musics */
 
 const CONSOLE_LOG_RESULTS = true; /* Output the current phrase and the filtering result */
+const DISABLE_MYSQL_DUPLICATE_MESSAGE = true; /* Disable the duplicate message error echoing from mysql */
 ```
 
 ```

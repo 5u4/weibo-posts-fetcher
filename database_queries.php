@@ -95,7 +95,7 @@ function databaseQuery(string $query, bool $expectReturn = false): array
     $result = $db->query($query);
 
     if (!$result) {
-        throw new Exception($query . "\n" . mysqli_error($db) . " \n");
+        throw new Exception(mysqli_error($db) . " \n" . $query . "\n\n");
     }
 
     if ($expectReturn) {
@@ -108,4 +108,15 @@ function databaseQuery(string $query, bool $expectReturn = false): array
     }
 
     return [];
+}
+
+/**
+ * @param string $message
+ * @return bool
+ */
+function isDuplicateEntry(string $message): bool
+{
+    $duplicateMessage = 'Duplicate entry';
+
+    return substr($message, 0, strlen($duplicateMessage)) == $duplicateMessage;
 }
