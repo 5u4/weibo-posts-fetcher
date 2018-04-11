@@ -61,10 +61,12 @@ function insertIntoTable(string $table, array $values): void
  * @param string $table
  * @param array $selectedColumns
  * @param array|null $whereClauses
+ * @param array|null $orderBy
+ * @param int|null $limit
  * @return array
  * @throws Exception
  */
-function select(string $table, array $selectedColumns, array $whereClauses = null): array
+function select(string $table, array $selectedColumns, array $whereClauses = null, array $orderBy = null, int $limit = null): array
 {
     /* Columns */
     $selectedColumns = implode(', ', $selectedColumns);
@@ -72,9 +74,14 @@ function select(string $table, array $selectedColumns, array $whereClauses = nul
     /* Where Clauses */
     if (isset($whereClauses)) $whereClauses = implode(' AND ', $whereClauses);
 
+    /* Order By */
+    if (isset($orderBy)) $orderBy = implode(', ', $orderBy);
+
     /* Build Query */
     $query = "SELECT " . $selectedColumns . " FROM " . $table;
     if (isset($whereClauses)) $query .= " WHERE " . $whereClauses;
+    if (isset($orderBy)) $query .= " ORDER BY " . $orderBy;
+    if (isset($limit)) $query .= " LIMIT " . $limit;
 
     /* Select */
     return databaseQuery($query, true);
