@@ -10,6 +10,23 @@ if (STORE_IMAGES_LOCALLY && !is_dir(rtrim(STORING_LOCATION, '/') . '/images')) {
     mkdir(rtrim(STORING_LOCATION, '/') . '/images');
 }
 
+/* Stats */
+const NUMBER_OF_RETWEETS = 'NUMBER_OF_RETWEETS';
+const NUMBER_OF_ORIGINALS = 'NUMBER_OF_ORIGINALS';
+const NUMBER_OF_POSTS_CONTAINING_IMAGES = 'NUMBER_OF_POSTS_CONTAINING_IMAGES';
+const NUMBER_OF_UNIQUE_POSTS = 'NUMBER_OF_UNIQUE_POSTS';
+const NUMBER_OF_DUPLICATED_POSTS = 'NUMBER_OF_DUPLICATED_POSTS';
+const NUMBER_OF_IMAGES_DOWNLOADED = 'NUMBER_OF_IMAGES_DOWNLOADED';
+
+$stats = [
+    NUMBER_OF_RETWEETS => 0,
+    NUMBER_OF_ORIGINALS => 0,
+    NUMBER_OF_POSTS_CONTAINING_IMAGES => 0,
+    NUMBER_OF_UNIQUE_POSTS => 0,
+    NUMBER_OF_DUPLICATED_POSTS => 0,
+    NUMBER_OF_IMAGES_DOWNLOADED => 0,
+];
+
 /* API Fetch Each User */
 $resources = [];
 foreach (USERNAMES as $index => $username) {
@@ -21,6 +38,7 @@ foreach (USERNAMES as $index => $username) {
     }
 
     /* Fetch Data */
+    if (CONSOLE_LOG_RESULTS) echo "Fetching API data + Storing into database \n";
     for ($page = 1; $page <= NUMBER_OF_PAGES; $page++) {
         /* API call */
         try {
@@ -31,7 +49,7 @@ foreach (USERNAMES as $index => $username) {
                 'feature' => FEATURE
             ]);
         } catch (Exception $e) {
-            echo $e->getMessage();
+            if (CONSOLE_LOG_RESULTS) echo $e->getMessage();
             continue;
         }
 
@@ -44,6 +62,8 @@ foreach (USERNAMES as $index => $username) {
         foreach ($data['statuses'] as $post) {
             /* If the post is retweeted post */
             if (isset($post['retweeted_status'])) {
+                $stats[NUMBER_OF_RETWEETS] += 1;
+
                 /* Store Retweeted Images */
                 if (STORE_IMAGES_LOCALLY && STORE_RETWEET_IMAGES && !empty($post['retweeted_status']['pic_urls'])) {
                     list($dest, $imageLinks) = resourcesGetter($post['retweeted_status']['pic_urls'], $post['retweeted_status']['id']);
@@ -52,6 +72,8 @@ foreach (USERNAMES as $index => $username) {
 
                 /* Set Original Post */
                 $post = $post['retweeted_status'];
+            } else {
+                $stats[NUMBER_OF_ORIGINALS] += 1;
             }
 
             /* Database Values */
@@ -66,6 +88,7 @@ foreach (USERNAMES as $index => $username) {
 
             /* Has Image */
             if (!empty($post['pic_urls'])) {
+                $stats[NUMBER_OF_POSTS_CONTAINING_IMAGES] += 1;
                 list($dest, $imageLinks) = resourcesGetter($post['pic_urls'], $post['id']);
                 $resources[$dest] = $imageLinks;
                 $values['image_qualities'] = IMAGE_QUALITY;
@@ -75,8 +98,10 @@ foreach (USERNAMES as $index => $username) {
             /* Insert into database */
             try {
                 insertIntoTable($table, $values);
+                $stats[NUMBER_OF_UNIQUE_POSTS] += 1;
             } catch (Exception $e) {
-                echo $e->getMessage();
+                if (CONSOLE_LOG_RESULTS) echo $e->getMessage();
+                $stats[NUMBER_OF_DUPLICATED_POSTS] += 1;
                 continue;
             }
         }
@@ -84,6 +109,17 @@ foreach (USERNAMES as $index => $username) {
 }
 
 /* Download Images */
+if (CONSOLE_LOG_RESULTS) echo "Downloading images \n";
 foreach ($resources as $dest => $resource) {
-    storeImages($dest, $resource);
+    $stats[NUMBER_OF_IMAGES_DOWNLOADED] += storeImages($dest, $resource);
 }
+
+/* Stats */
+if (CONSOLE_LOG_RESULTS) {
+    foreach ($stats as $stat => $value) {
+        echo $stat . ": " . $value . "\n";
+    }
+}
+
+/* Finish */
+if (CONSOLE_LOG_RESULTS) echo "Finished \n";

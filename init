@@ -11,9 +11,9 @@ require_once 'database_queries.php';
 foreach (USERNAMES as $username) {
     try {
         createTableIfNotExists($username);
-        echo $username . " table created successfully. \n";
+        if (CONSOLE_LOG_RESULTS) echo $username . " table created successfully. \n";
     } catch (Exception $e) {
-        echo $e->getMessage() . "\n";
+        if (CONSOLE_LOG_RESULTS) echo $e->getMessage() . "\n";
         continue;
     }
 }

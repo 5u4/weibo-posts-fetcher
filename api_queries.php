@@ -58,14 +58,19 @@ function fetchHomeTimeLine(array $args): array
 /**
  * @param string $dest
  * @param array $resource
+ * @return int
  */
-function storeImages(string $dest, array $resource): void
+function storeImages(string $dest, array $resource): int
 {
+    $counter = 0;
     foreach ($resource as $name => $url) {
         if (!file_exists($dest . '/' . $name)) {
             copy($url, $dest . '/' . $name);
+            $counter += 1;
         }
     }
+
+    return $counter;
 }
 
 /**
