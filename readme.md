@@ -14,7 +14,15 @@ API: [Weibo API](http://open.weibo.com/wiki/API)
 
 ## Initialize
 
-1. Rename [conf.example](config/conf.example) to `conf` and fill out the settings
+1. Configuration
+
+```bash
+$ php weibo config
+```
+
+*Note: you can use your own editor to open it.*
+
+*Rename [conf.example](config/conf.example) to `conf` and fill out the settings*
 
 If you are feeling the configs are too much, just fill in `ACCESS_TOKENS` provided in `conf.example` + database credentials, and keep going! 😉
 
@@ -60,7 +68,7 @@ MySQL> CREATE DATABASE <DB_DABATASE>
 3. Initialize
 
 ```bash
-php init
+$ php weibo init
 ```
 
 ## How to Use
@@ -70,13 +78,13 @@ You can use it [when is needed](#when-needed) or [set a `crontab` job](#crontab)
 ### When Needed
 
 ```bash
-php fetch
+$ php weibo fetch
 ```
 
 ### Crontab
 
 ```bash
-crontab -e
+$ crontab -e
 ```
 
 Add the following to the file (replace `<directory>` to file directory)
@@ -90,7 +98,7 @@ Add the following to the file (replace `<directory>` to file directory)
 You can host PHP file in a local host to view the posts.
 
 ```bash
-php -S localhost:8000
+$ php weibo serve
 ```
 
 Then use your browser to open [localhost:8000](http://localhost:8000/)

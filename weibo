@@ -6,6 +6,7 @@ switch ($argv[1])
 {
     /* Configuration */
     case 'config': {
+        configuration();
         break;
     }
 
@@ -31,4 +32,15 @@ switch ($argv[1])
     default: {
         echo "No such command, please check the document in https://github.com/senhungwong/weibo-posts-fetcher \n";
     }
+}
+
+function configuration()
+{
+    /* Check If Conf Exists */
+    if (!file_exists($_SERVER['DOCUMENT_ROOT'] . 'config/conf')) {
+        passthru("cp config/conf.example config/conf");
+    }
+
+    /* Edit */
+    passthru("nano config/conf");
 }
