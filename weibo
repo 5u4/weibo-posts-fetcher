@@ -2,7 +2,7 @@
 <?php
 @ob_end_clean();
 
-switch ($argv[0])
+switch ($argv[1])
 {
     /* Configuration */
     case 'config': {
@@ -11,16 +11,19 @@ switch ($argv[0])
 
     /* Initialize Database + Dirs */
     case 'init': {
+        passthru("php cli/init.php");
         break;
     }
 
     /* Fetch Weibo Content */
     case 'fetch': {
+        passthru("php cli/fetch.php");
         break;
     }
 
     /* Start Localhost Serving */
     case 'serve': {
+        passthru("php -S localhost:8000");
         break;
     }
 
