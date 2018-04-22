@@ -14,7 +14,7 @@ API: [Weibo API](http://open.weibo.com/wiki/API)
 
 ## Initialize
 
-1. Rename [conf.example](conf.example) to `conf` and fill out the settings
+1. Rename [conf.example](config/conf.example) to `conf` and fill out the settings
 
 If you are feeling the configs are too much, just fill in `ACCESS_TOKENS` provided in `conf.example` + database credentials, and keep going! 😉
 
@@ -101,4 +101,4 @@ The page is made with [Materialize CSS](http://materializecss.com/about.html)
 
 ### Database
 
-![Database](./screenshots/database.png)
+![Database](docs/screenshots/database.png)

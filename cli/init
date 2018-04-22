@@ -2,8 +2,8 @@
 <?php
 @ob_end_clean();
 
-require_once 'conf';
-require_once 'database_queries.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . 'config/conf';
+require_once $_SERVER['DOCUMENT_ROOT'] . 'db/database_queries.php';
 
 /** -----------------------------------------
  * Create Tables

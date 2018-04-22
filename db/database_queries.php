@@ -1,7 +1,7 @@
 <?php
 
-include_once 'db.inc.php';
-include_once 'conf';
+include_once $_SERVER['DOCUMENT_ROOT'] . 'db/db.inc.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . 'config/conf';
 
 /**
  * @param string $tableName

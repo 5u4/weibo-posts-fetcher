@@ -1,7 +1,7 @@
 <?php
 
 /* import credentials */
-require_once 'conf';
+require_once $_SERVER['DOCUMENT_ROOT'] . 'config/conf';
 
 /* Database Connection */
 $db = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_PORT);

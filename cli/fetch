@@ -2,9 +2,9 @@
 <?php
 @ob_end_clean();
 
-require_once 'conf';
-require_once 'api_queries.php';
-require_once 'database_queries.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . 'config/conf';
+require_once $_SERVER['DOCUMENT_ROOT'] . 'api/api_queries.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . 'db/database_queries.php';
 
 /* Make directory images for storing images */
 if (STORE_IMAGES_LOCALLY && !is_dir(rtrim(STORING_LOCATION, '/') . '/images')) {
