@@ -8,7 +8,7 @@ and store them locally.
  
 It saves user's time in browsing since most of the content are repeated (people retweet posts).
 
-The tool requires PHP7 and MySQL.
+**The tool requires PHP7 and MySQL.**
 
 API: [Weibo API](http://open.weibo.com/wiki/API)
 
@@ -16,7 +16,7 @@ API: [Weibo API](http://open.weibo.com/wiki/API)
 
 1. Rename [conf.example](conf.example) to `conf` and fill out the settings
 
-If you are feeling the configs are too much, just fill in `ACCESS_TOKENS` provided in `conf.example` and database credentials, and keep going! 😉
+If you are feeling the configs are too much, just fill in `ACCESS_TOKENS` provided in `conf.example` + database credentials, and keep going! 😉
 
 ```
 /* Tool Settings */
@@ -93,7 +93,7 @@ You can host PHP file in a local host to view the posts.
 php -S localhost:8000
 ```
 
-Then use your browser to open `localhost:8000`
+Then use your browser to open [localhost:8000](http://localhost:8000/)
 
 The page is made with [Materialize CSS](http://materializecss.com/about.html)
 
