@@ -1,0 +1,31 @@
+#!/usr/bin/php
+<?php
+@ob_end_clean();
+
+switch ($argv[0])
+{
+    /* Configuration */
+    case 'config': {
+        break;
+    }
+
+    /* Initialize Database + Dirs */
+    case 'init': {
+        break;
+    }
+
+    /* Fetch Weibo Content */
+    case 'fetch': {
+        break;
+    }
+
+    /* Start Localhost Serving */
+    case 'serve': {
+        break;
+    }
+
+    /* No Such Command */
+    default: {
+        echo "No such command, please check the document in https://github.com/senhungwong/weibo-posts-fetcher \n";
+    }
+}
