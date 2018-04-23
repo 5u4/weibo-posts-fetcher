@@ -10,7 +10,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . 'src/presenter.php';
 $table = USERNAMES[0];
 
 try {
-    $posts = select($table, ['user_name', 'text', 'image_names', 'id'], null, ['timestamp DESC'], 20);
+    $posts = select($table, ['user_name', 'text', 'image_qualities', 'image_names', 'id'], null, ['timestamp DESC'], 20);
 } catch (Exception $e) {
     echo $e->getMessage();
     exit;
@@ -26,7 +26,6 @@ try {
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Import materialize.css -->
     <link type="text/css" rel="stylesheet" href="src/css/materialize.min.css" media="screen,projection"/>
-
     <!-- Let browser know website is optimized for mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
@@ -50,7 +49,15 @@ try {
 <div class="container">
     <?php
     foreach ($posts as $post) {
-        echo card($post['text'],$post['user_name']);
+        $imageUris = [];
+        if ($post['image_qualities']) {
+            $imageNames = json_decode($post['image_names']);
+            foreach ($imageNames as $imageName) {
+                $imageUris[] = parseImageUri($post['id'], $post['image_qualities'], $imageName);
+            }
+        }
+
+        echo card($post['text'], $post['user_name'], $imageUris);
     }
     ?>
 </div>
