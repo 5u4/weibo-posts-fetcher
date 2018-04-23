@@ -9,7 +9,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . 'config/conf';
  */
 function card(string $content, string $username): string
 {
-    $first = '<div class="row"><div class="col s12 m6"><div class="card blue lighten-3 darken-1"><div class="card-content white-text"><span class="card-title">';
+    $first = '<div class="row"><div class="col s12 m12 l12"><div class="card yellow lighten-5"><div class="card-content indigo-text text-darken-2"><span class="card-title">';
 
     $second = '</span><p>';
 

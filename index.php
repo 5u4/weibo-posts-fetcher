@@ -32,16 +32,20 @@ try {
 </head>
 <body>
 <!-- Navbar -->
-<nav>
-    <div class="nav-wrapper container">
-        <a herf="#" class="brand-logo right">Weibo Posts Fetcher</a>
-        <ul id="nav-mobile" class="left hide-on-med-and-down">
-            <li><a herf="#">Btn 1</a></li>
-            <li><a herf="#">Btn 2</a></li>
-            <li><a herf="#">Btn 3</a></li>
-        </ul>
-    </div>
-</nav>
+<div class="navbar-fixed">
+    <nav class="teal lighten-5">
+        <div class="nav-wrapper container">
+            <a herf="#" class="brand-logo center">
+                <img src="/src/images/logo.png" height="56" style="padding-top: 10px">
+            </a>
+            <!--        <ul id="nav-mobile" class="left hide-on-med-and-down">-->
+            <!--            <li><a herf="#">Btn 1</a></li>-->
+            <!--            <li><a herf="#">Btn 2</a></li>-->
+            <!--            <li><a herf="#">Btn 3</a></li>-->
+            <!--        </ul>-->
+        </div>
+    </nav>
+</div>
 <!-- Body -->
 <div class="container">
     <?php
