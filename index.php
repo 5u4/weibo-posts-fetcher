@@ -1,5 +1,8 @@
 <?php
 
+/* Adjust Directory Path For Hosting */
+$_SERVER['DOCUMENT_ROOT'] .= '/';
+
 require_once $_SERVER['DOCUMENT_ROOT'] . 'config/conf';
 require_once $_SERVER['DOCUMENT_ROOT'] . 'db/database_queries.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . 'src/presenter.php';

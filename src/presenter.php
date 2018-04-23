@@ -1,6 +1,6 @@
 <?php
 
-require_once 'conf';
+require_once $_SERVER['DOCUMENT_ROOT'] . 'config/conf';
 
 /**
  * @param string $content
