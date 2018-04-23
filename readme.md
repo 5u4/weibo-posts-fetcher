@@ -110,3 +110,11 @@ The page is made with [Materialize CSS](http://materializecss.com/about.html)
 ### Database
 
 ![Database](docs/screenshots/database.png)
+
+### Fetch Weibo
+
+![Fetch Weibo](docs/screenshots/fetch.png)
+
+### Presenter
+
+![Presenter](docs/screenshots/image-in-present.png)
