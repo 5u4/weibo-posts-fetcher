@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/senhungwong/weibo-posts-fetcher/blob/master/src/images/logo.png" width="75%"></p>
+<p align="center"><img src="https://github.com/senhungwong/weibo-posts-fetcher/blob/master/src/images/logo.png" width="55%"></p>
 
 ## Description
 
