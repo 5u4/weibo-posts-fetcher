@@ -1,4 +1,4 @@
-# Weibo Posts Fetcher
+<p align="center"><img src="https://github.com/senhungwong/weibo-posts-fetcher/blob/master/src/images/logo.png"></p>
 
 ## Description
 
@@ -93,9 +93,9 @@ Add the following to the file (replace `<directory>` to file directory)
 0 */8 * * * (php <directory>/fetch) # execute every 8 hours
 ```
 
-## View Posts Using Presenter
+## View Posts
 
-You can host PHP file in a local host to view the posts.
+To view posts, host the website using
 
 ```bash
 $ php weibo serve
